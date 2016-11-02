@@ -53,6 +53,8 @@ public class ShannonsModel extends Observable {
 	 */
 	public void setBandwidth(double hertz) {
 		bandwidth = hertz;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -74,7 +76,7 @@ public class ShannonsModel extends Observable {
 	@Override
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.00");
-		return "The Maximum Data Rate is: "+df.format(getMaximumDataRate());
+		return "Bandwidth: " + getBandwidth() + ". SignalToNoise: " + getSignaltoNoise() + ". The Maximum Data Rate is: "+df.format(getMaximumDataRate());
 	}
 	
 	/**

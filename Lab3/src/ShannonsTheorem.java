@@ -4,9 +4,15 @@
 import java.util.Observer;
 
 import javax.naming.InitialContext;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+
+import com.sun.java.swing.plaf.motif.MotifBorders.BevelBorder;
 
 
 /**
@@ -23,29 +29,10 @@ public class ShannonsTheorem implements ShannonsController {
 	 */
 
 	public ShannonsTheorem() {
-		controller = new ShannonsController() {
-			
-			@Override
-			public void setSignalToNoise(double signalToNoiseRatio) {
-				this.setSignalToNoise(signalToNoiseRatio);
-			}
-			
-			@Override
-			public void setBandwidth(double bandwidth) {
-				setBandwidth(bandwidth);
-			}
-			
-			@Override
-			public void addObserver(Observer o) {
-				addObserver(o);	
-			}
-		};
 		model = new ShannonsModel();
-		panel = new ShannonsPanel(this);
-		model.addObserver(panel);
-		
-		panel2 = new ShannonsPanel(this);
-		model.addObserver(panel2);
+//		panel = new ShannonsPanel(this);
+//		model.addObserver(panel);
+
 	}
 
 
@@ -122,9 +109,25 @@ public class ShannonsTheorem implements ShannonsController {
 		JFrame frame = new JFrame("Shannons Theorem MVC");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//ShannonsPanel panel1 = new ShannonsPanel(this);
 		JPanel container = new JPanel();
-		container.add(panel);
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+		ShannonsPanel panel1 = new ShannonsPanel(this, "text");
+		ShannonsPanel panel2 = new ShannonsPanel(this, "slider");
+		ShannonsPanel panel3 = new ShannonsPanel(this, "spinner");
+
+		panel1.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), BorderFactory.createRaisedBevelBorder()));
+		panel2.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), BorderFactory.createRaisedBevelBorder()));
+		panel3.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), BorderFactory.createRaisedBevelBorder()));
+		
+		container.add(panel1);
+		container.add(panel2);
+		container.add(panel3);
+		
+		model.addObserver(panel1);
+		model.addObserver(panel2);
+		model.addObserver(panel3);
+		
 		frame.getContentPane().add(container);
 		
 		frame.pack();
@@ -138,7 +141,7 @@ public class ShannonsTheorem implements ShannonsController {
 	 * @param	o	Observer
 	 */
 	public void addObserver(Observer o) {
-		controller = (ShannonsController) o;
+		//controller = (ShannonsController) o;
 	}
 
 	public static void main(String[] args) {		
@@ -154,10 +157,10 @@ public class ShannonsTheorem implements ShannonsController {
 	/**
 	 * Field holding an instance of ShannonsController.
 	 */
-	private static ShannonsController controller;
+	//private static ShannonsController controller;
 	
-	private ShannonsPanel panel; 
-	private ShannonsPanel panel2; 
+//	private ShannonsPanel panel; 
+//	private ShannonsPanel panel2; 
 
 }	/*	End of CLASS:	ShannonsTheorem.java			*/
 
