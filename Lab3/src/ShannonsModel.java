@@ -1,11 +1,13 @@
 
 //package network;
 
+/* import statements */
 import java.text.DecimalFormat;
 import java.util.Observable;
 
 /**
  * Shannon's Model for use with ShannonsTheorem.
+ * 
  * @author    Victoria Sawyer
  * @version   1.0.0 2016-09-13
  */
@@ -16,89 +18,91 @@ public class ShannonsModel extends Observable {
 	 * The default constructor. It takes no parameters and returns nothing.
 	 */	
 	public ShannonsModel() {
-	}
+	} /* End of CONSTRUCTOR:	ShannonsModel() */
 
 	/**
-	 * Get the bandwidth.
+	 * Get method that returns the bandwidth (hertz).
 	 * 
-	 * @return	The bandwidth in Hertz
+	 * @return	bandwidth	double that holds the bandwidth (hertz)
 	 */
 	public double getBandwidth() {
 		return bandwidth;
-	}
+	} /* End of METHOD:	getBandwidth() */
 
 	/**
-	 * Get the signal-to-noise ratio in decibels.
+	 * Get method that returns the signal-to-noise ratio (decibels).
 	 * 
-	 * @return	The signal-to-noise ratio in decibels
+	 * @return	signalToNoise	double that holds the signal-to-noise ratio (decibels)
 	 */
-	public double getSignaltoNoise() {
+	public double getSignalToNoise() {
 		return signalToNoise;
-	}
+	} /* End of METHOD:	getSignalToNoise() */
 
 	/**
-	 * Get the maximum data rate after already setting bandwith and signal-to-noise ratio via modifier methods.
-	 * Uses the private getMaximumDataRate(hertz, signalToNoise).
+	 * Get method that returns the maximum data rate using the private 
+	 * maximumDataRate() method. The bandwidth and signalToNoise fields
+	 * must already be set.
 	 * 
-	 * @return	The maximum data rate
+	 * @return	maximumDataRate()	private method to set maximum data rate
 	 */
 	public double getMaximumDataRate() {
 		return maximumDataRate(bandwidth, signalToNoise);
-	}
+	} /* End of METHOD:	getMaximumDataRate() */
 
 	/**
-	 * Set the bandwidth.
+	 * Set method for the bandwidth (hertz).
+	 * Notify the observer that the bandwidth has changed.
 	 * 
-	 * @param	hertz	The bandwidth in Hertz
+	 * @param	hertz	double that sets the bandwidth (hertz)
 	 */
 	public void setBandwidth(double hertz) {
 		bandwidth = hertz;
 		setChanged();
 		notifyObservers(this);
-	}
+	} /* End of METHOD:	setBandwidth() */
 
 	/**
-	 * Set the signal-to-noise ratio in decibels.
+	 * Set method for the signal-to-noise ratio (decibels).
+	 * Notify the observer that the signal-to-noise ratio has changed.
 	 * 
-	 * @param	snr		The signal-to-noise ratio in decibels
+	 * @param	snr		double that sets the signal-to-nois ratio (decibels)
 	 */
 	public void setSignalToNoise(double snr) {
 		signalToNoise = snr;
 		setChanged();
 		notifyObservers(this);
-	}
+	} /* End of METHOD:	setSignalToNoise() */
 
 	/**
-	 * Return a string with the result of the calculations.
+	 * toString method to return the result of 
+	 * calculating the maximum data rate. It also shows 
+	 * the bandwidth (hertz) and signal-to-noise (decibels).
 	 * 
-	 * @return	A string stating the maximum data rate
+	 * @return	String containing the bandwidth(hertz), signal-to-noise (decibels), and maximum data rate
 	 */
 	@Override
 	public String toString() {
 		DecimalFormat df = new DecimalFormat("#.00");
-		return "Bandwidth: " + getBandwidth() + ". SignalToNoise: " + getSignaltoNoise() + ". The Maximum Data Rate is: "+df.format(getMaximumDataRate());
-	}
+		return "Bandwidth: " + getBandwidth() + ". SignalToNoise: " + getSignalToNoise() + ". The Maximum Data Rate is: "+df.format(getMaximumDataRate());
+	} /* End of METHOD:	toString() */
 	
 	/**
-	 * Get the maximum data rate, having given the methon the bandwidth and signal-to-noise ratio.
+	 * Private method to set the maximum data rate.
 	 * 
-	 * @param	hertz	The bandwidth in Hertz
-	 * @param	snr	The signal-to-noise ratio in decibels
-	 * @return	The maximum data rate
+	 * @param	hertz	double holding the bandwidth (hertz)
+	 * @param	snr		double hoding the signal-to-noise ratio (decibels)
+	 * @return	mdr		double holding the maximum data rate 
 	 */
 	private static double maximumDataRate(double hertz, double snr) {
+		/* Formula to calculate maximum data rate. */
 		double mdr = (hertz*(Math.log(1+Math.pow(10, snr/10))/Math.log(2)));
 		return mdr;
-	}
+	} /* End of METHOD:	maximumDataRate() */
 
-	/**
-	 * Field representing the bandwidth in Hertz.
-	 */
+	/** Double for the bandwidth (hertz). */
 	private double bandwidth;
 	
-	/**
-	 * Field representing the signal-to-noise ratio in decibels.
-	 */
+	/** Double for the signal-to-noise-ratio (decibels). */
 	private double signalToNoise;
 
-}
+} /* End of CLASS:	ShannonsModel.java */
